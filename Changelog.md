@@ -1,3 +1,7 @@
+## 0.8.0
+
+- Added support for net10.0
+
 ## 0.7.1
 
 - Fixed GitHub Actions build.
