@@ -1,6 +1,12 @@
 ## vNext
 
+- Removed support for net461
+- Added support for net462
 - Avoid clearing the console when output is redirected or the console is unavailable.
+
+### Breaking Changes
+
+- Removed support for net461, use net462 instead.
 
 ## 0.8.0
 

@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Defaults (can be overridden with /p:netCoreMinimum=... etc) -->
-		<NetFullFramework Condition="'$(NetFullFramework)'==''">net461</NetFullFramework>
+		<NetFullFramework Condition="'$(NetFullFramework)'==''">net462</NetFullFramework>
 		<NetCoreMinimum Condition="'$(NetCoreMinimum)'==''">net8.0</NetCoreMinimum>
 		<NetCorePrevious Condition="'$(NetCorePrevious)'==''">net9.0</NetCorePrevious>
 		<NetCoreCurrent Condition="'$(NetCoreCurrent)'==''">net10.0</NetCoreCurrent>

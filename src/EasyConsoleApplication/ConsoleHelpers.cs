@@ -95,7 +95,7 @@ namespace EasyConsoleApplication
 		public static ConsoleKeyInfo AskToUserYesNoQuestion(ConsoleColor color, string question, bool newLine = true)
 		{
 			Write(color, question + " [y/n] ", false);
-			if (Console.IsInputRedirected)
+			if (IsInputRedirected())
 			{
 				// ReadKey requires an interactive terminal, so consume redirected input as a line.
 				while (true)
@@ -132,6 +132,23 @@ namespace EasyConsoleApplication
 			return key;
 		}
 
+		private static bool IsInputRedirected()
+		{
+			try
+			{
+				_ = Console.KeyAvailable;
+				return Console.IsInputRedirected || Console.IsOutputRedirected;
+			}
+			catch (InvalidOperationException)
+			{
+				return true;
+			}
+			catch (IOException)
+			{
+				return true;
+			}
+		}
+
 		/// <summary>
 		/// Reads a line of input from the console with the specified color.
 		/// </summary>
@@ -156,7 +173,7 @@ namespace EasyConsoleApplication
 		public static void HitEnterToContinue()
 		{
 			Write(ConsoleSettings.HitEnterToContinueColor, "Hit 'Enter' to continue.", newLine: true);
-			if (Console.IsInputRedirected)
+			if (IsInputRedirected())
 			{
 				// There is no key event to wait for when stdin is redirected.
 				return;

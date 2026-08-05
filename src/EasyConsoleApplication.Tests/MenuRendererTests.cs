@@ -1,11 +1,13 @@
 using EasyConsoleApplication.Menus;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EasyConsoleApplication.Tests;
 
+[TestClass]
+[DoNotParallelize]
 public sealed class MenuRendererTests
 {
-	[Fact]
+	[TestMethod]
 	public void Render_does_not_clear_redirected_output()
 	{
 		var originalOut = Console.Out;
@@ -27,7 +29,7 @@ public sealed class MenuRendererTests
 		}
 	}
 
-	[Fact]
+	[TestMethod]
 	public void Render_stops_when_input_reaches_eof()
 	{
 		var originalOut = Console.Out;
@@ -49,7 +51,7 @@ public sealed class MenuRendererTests
 		}
 	}
 
-	[Fact]
+	[TestMethod]
 	public void Key_prompts_do_not_require_interactive_input()
 	{
 		var originalOut = Console.Out;
@@ -62,7 +64,7 @@ public sealed class MenuRendererTests
 			var answer = ConsoleHelpers.AskToUserYesNoQuestion(ConsoleColor.Gray, "Continue?");
 			ConsoleHelpers.HitEnterToContinue();
 
-			Assert.Equal(ConsoleKey.Y, answer.Key);
+			Assert.AreEqual(ConsoleKey.Y, answer.Key);
 		}
 		finally
 		{
