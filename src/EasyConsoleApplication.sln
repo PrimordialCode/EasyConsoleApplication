@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyConsoleApplication", "E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyConsoleApplication.Example", "EasyConsoleApplication.Example\EasyConsoleApplication.Example.csproj", "{9EE6920A-8AB1-4105-8003-2A364AFA9D0C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyConsoleApplication.Tests", "EasyConsoleApplication.Tests\EasyConsoleApplication.Tests.csproj", "{C9E0C50E-4B5C-4C9B-B5D1-0C2D5D1A4B7E}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{652EE18A-E1BE-4333-8E08-4223B3969DFB}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
@@ -31,6 +33,10 @@ Global
 		{9EE6920A-8AB1-4105-8003-2A364AFA9D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EE6920A-8AB1-4105-8003-2A364AFA9D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EE6920A-8AB1-4105-8003-2A364AFA9D0C}.Release|Any CPU.Build.0 = Release|Any CPU
+				{C9E0C50E-4B5C-4C9B-B5D1-0C2D5D1A4B7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+				{C9E0C50E-4B5C-4C9B-B5D1-0C2D5D1A4B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+				{C9E0C50E-4B5C-4C9B-B5D1-0C2D5D1A4B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+				{C9E0C50E-4B5C-4C9B-B5D1-0C2D5D1A4B7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

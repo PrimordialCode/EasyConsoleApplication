@@ -35,7 +35,7 @@ namespace EasyConsoleApplication.Rendering
                 .ToList();
             while (true)
             {
-                Console.Clear();
+                ClearConsole();
                 if (!string.IsNullOrWhiteSpace(title))
                 {
                     ConsoleHelpers.Write(titleColor, title!, true);
@@ -82,6 +82,25 @@ namespace EasyConsoleApplication.Rendering
                         break;
                     }
                 }
+            }
+        }
+
+        private static void ClearConsole()
+        {
+            if (Console.IsOutputRedirected)
+            {
+                return;
+            }
+
+            try
+            {
+                Console.Clear();
+            }
+            catch (IOException)
+            {
+            }
+            catch (PlatformNotSupportedException)
+            {
             }
         }
 

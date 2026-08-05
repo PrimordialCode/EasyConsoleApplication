@@ -1,3 +1,7 @@
+## vNext
+
+- Avoid clearing the console when output is redirected or the console is unavailable.
+
 ## 0.8.0
 
 - Added support for net10.0
