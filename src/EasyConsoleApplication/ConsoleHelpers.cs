@@ -15,8 +15,21 @@ namespace EasyConsoleApplication
 		/// <param name="newLine">Indicates whether to append a new line after the message. Default is true.</param>
 		public static void Write(ConsoleColor color, string message, bool newLine = true)
 		{
-			var originalConsoleColor = Console.ForegroundColor;
-			Console.ForegroundColor = color;
+			ConsoleColor? originalConsoleColor = null;
+			try
+			{
+				originalConsoleColor = Console.ForegroundColor;
+				Console.ForegroundColor = color;
+			}
+			catch (IOException)
+			{
+				// Continue writing when the host has no usable console color buffer.
+			}
+			catch (InvalidOperationException)
+			{
+				// Continue writing when the console is unavailable.
+			}
+
 			if (newLine)
 			{
 				Console.WriteLine(message);
@@ -25,7 +38,21 @@ namespace EasyConsoleApplication
 			{
 				Console.Write(message);
 			}
-			Console.ForegroundColor = originalConsoleColor;
+			if (originalConsoleColor.HasValue)
+			{
+				try
+				{
+					Console.ForegroundColor = originalConsoleColor.Value;
+				}
+				catch (IOException)
+				{
+					// The console may become unavailable while writing the message.
+				}
+				catch (InvalidOperationException)
+				{
+					// The console may become unavailable while writing the message.
+				}
+			}
 		}
 
 		/// <summary>
@@ -68,6 +95,31 @@ namespace EasyConsoleApplication
 		public static ConsoleKeyInfo AskToUserYesNoQuestion(ConsoleColor color, string question, bool newLine = true)
 		{
 			Write(color, question + " [y/n] ", false);
+			if (Console.IsInputRedirected)
+			{
+				// ReadKey requires an interactive terminal, so consume redirected input as a line.
+				while (true)
+				{
+					var input = Console.ReadLine();
+					var keyChar = input?.FirstOrDefault(char.IsLetter) ?? ' ';
+					if (keyChar is not ('y' or 'Y' or 'n' or 'N'))
+					{
+						if (input is null)
+						{
+							return new ConsoleKeyInfo(' ', ConsoleKey.Spacebar, false, false, false);
+						}
+						continue;
+					}
+
+					var redirectedKey = new ConsoleKeyInfo(keyChar, keyChar is 'y' or 'Y' ? ConsoleKey.Y : ConsoleKey.N, false, false, false);
+					if (newLine)
+					{
+						Console.WriteLine();
+					}
+					return redirectedKey;
+				}
+			}
+
 			var key = new ConsoleKeyInfo(' ', ConsoleKey.Spacebar, false, false, false);
 			while (key.KeyChar != 'y' && key.KeyChar != 'n')
 			{
@@ -104,6 +156,12 @@ namespace EasyConsoleApplication
 		public static void HitEnterToContinue()
 		{
 			Write(ConsoleSettings.HitEnterToContinueColor, "Hit 'Enter' to continue.", newLine: true);
+			if (Console.IsInputRedirected)
+			{
+				// There is no key event to wait for when stdin is redirected.
+				return;
+			}
+
 			ConsoleKeyInfo key;
 			do
 			{
